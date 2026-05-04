@@ -47,13 +47,10 @@ export const useCardStore = defineStore('cards', () => {
   const totalCards = computed(() => cards.value.length)
 
   function addCard(card: Omit<Card, 'id' | 'isDefault'>): Card {
-    if (cards.value.length === 0) {
-      card.isDefault = true
-    }
     const newCard: Card = {
       ...card,
       id: generateId(),
-      isDefault: card.isDefault ?? false,
+      isDefault: cards.value.length === 0,
     }
     cards.value.push(newCard)
     return newCard
